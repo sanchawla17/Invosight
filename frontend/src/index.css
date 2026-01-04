@@ -1,0 +1,32 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Story+Script&family=Zen+Dots&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Urbanist", sans-serif;
+  --font-zen: "Zen Dots", sans-serif;
+  --font-story: "Story Script", cursive;
+  --breakpoint-3xl: 1920px;
+  --color-primary: #10B981;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-display);
+  }
+
+  body {
+    background-color: #fcfbfc;
+  }
+
+  .font-zen {
+    font-family: var(--font-zen);
+  }
+
+  .font-story {
+    font-family: var(--font-story);
+  }
+}
+
+
