@@ -25,8 +25,7 @@ Invosight helps freelancers and small businesses create invoices quickly, share 
 - Use quick tools for currency, discount, tax, and late-fee estimates.
 
 ## Live Demo
-- URL: https://your-demo-link-here
-- Demo credentials: (add if needed)
+- Coming soon!
 
 ## Screenshots
 - Dashboard
@@ -54,6 +53,7 @@ Invosight helps freelancers and small businesses create invoices quickly, share 
 - Due date auto-derived from payment terms
 - Status: Paid / Unpaid (Overdue derived in stats)
 - Print-friendly invoice view
+- Download invoice as PDF
 
 ### AI
 - Parse invoice text into structured fields
