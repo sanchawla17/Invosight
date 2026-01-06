@@ -1,5 +1,4 @@
-﻿import React from 'react'
-import { Quote } from 'lucide-react'
+﻿import { Quote } from 'lucide-react'
 import { TESTIMONIALS } from '../../utils/data'
 
 const Testimonials = () => {

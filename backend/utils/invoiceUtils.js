@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 const shareTokenSecret = process.env.SHARE_TOKEN_SECRET || process.env.JWT_SECRET;
 const shareTokenTtl = process.env.SHARE_TOKEN_TTL || "7d";
 
+// Function to create a share token for an invoice -valid for a specified TTL
 const createShareToken = (invoiceId) => {
   if (!shareTokenSecret) {
     throw new Error("Missing SHARE_TOKEN_SECRET/JWT_SECRET for share tokens.");

@@ -1,4 +1,4 @@
-// src/components/landing/Footer.jsx
+// footer component for landing page
 import { Link, useNavigate } from "react-router-dom";
 import { Linkedin, FileText } from "lucide-react";
 import React from "react";

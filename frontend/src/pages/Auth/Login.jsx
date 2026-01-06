@@ -1,16 +1,8 @@
-﻿import React, { useState } from "react";
-import {
-  Eye,
-  EyeOff,
-  Loader2,
-  Mail,
-  Lock,
-  FileText,
-  ArrowRight,
-} from "lucide-react";
-import { useAuth } from "../../context/AuthContext";
-import { loginUser } from "../../api/authApi";
-import { useNavigate } from "react-router-dom";
+﻿import { useState } from "react";
+import { Eye, EyeOff, Loader2, Mail, Lock, FileText, ArrowRight} from "lucide-react"; // Icons
+import { useAuth } from "../../context/AuthContext"; // Auth Context
+import { loginUser } from "../../api/authApi"; // API call
+import { useNavigate } from "react-router-dom"; // Navigation
 import { validateEmail, validatePassword } from "../../utils/helper";
 
 const Login = () => {
@@ -62,7 +54,6 @@ const Login = () => {
       [name]: true,
     }));
 
-    // Validate on blur
     const newFieldErrors = { ...fieldErrors };
     if (name === "email") {
       newFieldErrors.email = validateEmail(formData.email);
@@ -104,13 +95,12 @@ const Login = () => {
 
       if (response.status === 200) {
         if (response.data) {
-          setSuccess("Login successful");
-          login(response.data);
+          setSuccess("Login successful"); 
+          login(response.data); // Update auth context
 
-          // Redirect based on role
           setTimeout(() => {
           navigate("/dashboard");
-          }, 2000);
+          }, 1500);
         }
       } else {
         setError(response.data.message || "Invalid credentials");
@@ -126,6 +116,7 @@ const Login = () => {
     }
   };
 
+  // JSX Return - Login Form
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="w-full max-w-sm">

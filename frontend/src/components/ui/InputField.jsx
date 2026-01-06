@@ -1,5 +1,4 @@
-import React from 'react'
-
+// InputField component with optional icon and label
 const InputField = ({icon: Icon, label, name, ...props}) => {
   return (
     <div>

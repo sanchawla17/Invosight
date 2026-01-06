@@ -1,9 +1,10 @@
 import "dotenv/config";
 import express from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
+import cors from "cors"; // To enable backend to communicate with frontend
+import cookieParser from "cookie-parser"; // To parse cookies from requests
 import connectDB from "./config/db.js";
 
+// Import Routes
 import authRoutes from "./routes/authRoutes.js";
 import invoiceRoutes from "./routes/invoiceRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
@@ -13,8 +14,9 @@ import toolsRoutes from "./routes/toolsRoutes.js";
 
 const app = express();
 
-app.set("trust proxy", 1);
+app.set("trust proxy", 1); // for secure cookies behind proxies
 
+// CORS Configuration
 const defaultOrigins = ["http://localhost:5173", "http://localhost:4173"];
 const allowedOrigins = (process.env.CORS_ORIGIN || "")
   .split(",")
@@ -41,7 +43,7 @@ app.use(
 connectDB();
 
 // Middleware
-app.use(express.json({ limit: "6mb" }));
+app.use(express.json({ limit: "6mb" })); 
 app.use(cookieParser());
 
 // Routes Here
@@ -53,7 +55,7 @@ app.use("/api/clients", clientsRoutes);
 app.use("/api/tools", toolsRoutes);
 
 // Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; 
 if (process.env.NODE_ENV !== "test") {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }

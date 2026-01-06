@@ -7,7 +7,9 @@ const fetchInvoiceById = (id) =>
   axiosInstance.get(API_PATHS.INVOICE.GET_INVOICE_BY_ID(id));
 
 const createInvoice = (payload) =>
-  axiosInstance.post(API_PATHS.INVOICE.CREATE, payload);
+  axiosInstance.post(API_PATHS.INVOICE.CREATE, payload); 
+
+// payload contains invoice data
 
 const updateInvoice = (id, payload) =>
   axiosInstance.put(API_PATHS.INVOICE.UPDATE_INVOICE(id), payload);

@@ -1,5 +1,4 @@
-import React from 'react'
-
+// SelectField component with label and options
 const SelectField = ({label, name, options, ...props}) => {
   return (
     <div>

@@ -6,6 +6,8 @@ import DiscountTool from "../../components/tools/DiscountTool";
 import TaxTool from "../../components/tools/TaxTool";
 import LateFeeTool from "../../components/tools/LateFeeTool";
 
+
+// Mapping of tool IDs to their respective components for dynamic rendering
 const TOOL_COMPONENTS = {
   currency: CurrencyTool,
   discount: DiscountTool,

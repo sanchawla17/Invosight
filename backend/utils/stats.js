@@ -4,17 +4,18 @@ import Invoice from "../models/Invoice.js";
 const allowedRanges = new Set([7, 30, 90]);
 const allowedIntervals = new Set(["day", "week", "month"]);
 
+// Normalize rangeDays to allowed values - expected to be 7, 30, or 90
 const normalizeRangeDays = (value) => {
   const parsed = Number.parseInt(value, 10);
   return allowedRanges.has(parsed) ? parsed : 30;
 };
-
+// Normalize interval to allowed values - expected to be 'day', 'week', or 'month'
 const normalizeInterval = (value) => {
   const normalized =
     typeof value === "string" ? value.toLowerCase() : "day";
   return allowedIntervals.has(normalized) ? normalized : "day";
 };
-
+// Helper to get start and end dates based on rangeDays
 const getDateRange = (rangeDays) => {
   const endDate = new Date();
   const startDate = new Date();
@@ -23,8 +24,11 @@ const getDateRange = (rangeDays) => {
   return { startDate, endDate };
 };
 
+// Helper to convert string ID to MongoDB ObjectId
 const toObjectId = (id) => new mongoose.Types.ObjectId(id);
 
+
+// Build statistics for invoices based on user, date range, and interval
 export const buildStats = async ({ userId, rangeDays, interval }) => {
   const safeRangeDays = normalizeRangeDays(rangeDays);
   const safeInterval = normalizeInterval(interval);
@@ -35,7 +39,7 @@ export const buildStats = async ({ userId, rangeDays, interval }) => {
     user: userObjectId,
     invoiceDate: { $gte: startDate, $lte: endDate },
   };
-
+// Aggregate revenue data grouped by the specified interval
   const revenueSeries = await Invoice.aggregate([
     { $match: matchStage },
     {
@@ -60,13 +64,14 @@ export const buildStats = async ({ userId, rangeDays, interval }) => {
     },
     { $sort: { _id: 1 } },
   ]);
-
+// Format revenue data for output
   const revenueData = revenueSeries.map((item) => ({
     periodStart: new Date(item._id).toISOString(),
     totalInvoiced: Number(item.totalInvoiced || 0),
     totalPaid: Number(item.totalPaid || 0),
   }));
 
+  // Calculate total invoiced and paid amounts
   const totals = revenueData.reduce(
     (acc, item) => ({
       totalInvoiced: acc.totalInvoiced + item.totalInvoiced,
@@ -76,6 +81,7 @@ export const buildStats = async ({ userId, rangeDays, interval }) => {
   );
 
   const now = new Date();
+  // Aggregate invoice counts by status: Paid, Overdue, Sent
   const statusAgg = await Invoice.aggregate([
     { $match: matchStage },
     {
@@ -125,13 +131,13 @@ export const buildStats = async ({ userId, rangeDays, interval }) => {
     paid: 0,
     overdue: 0,
   };
-
+// Format status breakdown for output
   const statusBreakdown = [
     { status: "Sent", count: Number(statusCounts.sent || 0) },
     { status: "Paid", count: Number(statusCounts.paid || 0) },
     { status: "Overdue", count: Number(statusCounts.overdue || 0) },
   ];
-
+// Aggregate top 5 clients by total billed amount
   const topClientsAgg = await Invoice.aggregate([
     { $match: matchStage },
     {

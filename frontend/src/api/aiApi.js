@@ -6,9 +6,9 @@ const parseInvoiceText = (text) =>
 
 const parseInvoiceImage = (imageBase64, mimeType, contextText) =>
   axiosInstance.post(API_PATHS.AI.PARSE_INVOICE_IMAGE, {
-    imageBase64,
-    mimeType,
-    contextText,
+    imageBase64, // base64 encoded string
+    mimeType, // extension like 'image/png' or 'image/jpeg'
+    contextText, // optional additional context
   });
 
 const generateReminder = (invoiceId, tone) =>

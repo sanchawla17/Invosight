@@ -198,7 +198,7 @@ const SignUp = () => {
         });
 
         // Login the user immediately after successful registration
-        login(data);
+        login(data); // update auth context
         navigate("/dashboard");
       }
       

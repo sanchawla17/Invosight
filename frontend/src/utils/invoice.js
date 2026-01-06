@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from "moment"; // date manipulation library
 
 const PAYMENT_TERM_DAYS = {
   "Net 15": 15,
@@ -7,7 +7,7 @@ const PAYMENT_TERM_DAYS = {
   "Due on receipt": 0,
 };
 
-const PAYMENT_TERMS_OPTIONS = Object.keys(PAYMENT_TERM_DAYS);
+const PAYMENT_TERMS_OPTIONS = Object.keys(PAYMENT_TERM_DAYS); 
 
 const calculateDueDate = (invoiceDate, paymentTerms) => {
   if (!invoiceDate) {
@@ -24,6 +24,7 @@ const calculateDueDate = (invoiceDate, paymentTerms) => {
   return date.add(days, "days").format("YYYY-MM-DD");
 };
 
+// Overall totals calculation
 const calculateTotals = (items = []) => {
   let subtotal = 0;
   let taxTotal = 0;
@@ -35,6 +36,7 @@ const calculateTotals = (items = []) => {
   return { subtotal, taxTotal, total: subtotal + taxTotal };
 };
 
+// Item-wise total calculation
 const attachItemTotals = (items = []) =>
   items.map((item) => ({
     ...item,

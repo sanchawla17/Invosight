@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import Button from "../../components/ui/Button";
 import AIInsightsCard from "../../components/AIInsightsCard";
+import { formatMoney } from "../../utils/format";
 
 const Dashboard = () => {
 
@@ -60,6 +61,7 @@ const Dashboard = () => {
     fetchDashboardData();
   }, []);
 
+  // Stats data for rendering
   const statsData = [
     {
       icon: FileText,
@@ -70,23 +72,25 @@ const Dashboard = () => {
     {
       icon: DollarSign,
       label: "Total Paid",
-      value: `${stats.totalPaid.toFixed(2)}`,
+      value: formatMoney(stats.totalPaid),
       color: "emerald",
     },
     {
       icon: DollarSign,
       label: "Total Unpaid",
-      value: `${stats.totalUnpaid.toFixed(2)}`,
+      value: formatMoney(stats.totalUnpaid),
       color: "red",
     },
   ];
 
+  // Color classes for icons
   const colorClasses = {
     blue: { bg: "bg-blue-100", text: "text-blue-600" },
     emerald: { bg: "bg-emerald-100", text: "text-emerald-600" },
     red: { bg: "bg-red-100", text: "text-red-600" },
   };
 
+  // Loading state
   if (loading) {
     return (
       <div className="flex justify-center items-center h-96">

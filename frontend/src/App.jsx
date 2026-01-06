@@ -3,8 +3,10 @@ import {
   Routes,
   Route,
   Navigate,
-} from "react-router-dom";
-import { Toaster } from "react-hot-toast";
+} from "react-router-dom"; // Client side routing
+import { Toaster } from "react-hot-toast"; // Toast notifications
+
+// Importing Pages
 import LandingPage from "./pages/LandingPage/LandingPage";
 import SignUp from "./pages/Auth/SignUp";
 import Login from "./pages/Auth/Login";
@@ -18,13 +20,13 @@ import Clients from "./pages/Clients/Clients";
 import ClientDetail from "./pages/Clients/ClientDetail";
 import Tools from "./pages/Tools/Tools";
 import ProfilePage from "./pages/Profile/ProfilePage";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
-import { AuthProvider } from "./context/AuthContext";
 import About from "./pages/LandingPage/About"
 import Contact from "./pages/LandingPage/Contact"
 import Privacy from "./pages/LandingPage/Privacy"
 import Terms from "./pages/LandingPage/Terms"
-
+// Importing Components
+import ProtectedRoute from "./components/auth/ProtectedRoute"; // Protecting routes
+import { AuthProvider } from "./context/AuthContext"; // Auth Context
 
 const App = () => {
   return (
@@ -39,7 +41,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
-          <Route path="/share/:token" element={<SharedInvoice />} />
+          <Route path="/share/:token" element={<SharedInvoice />} /> 
 
 
           {/* Protected Routes */}
@@ -60,7 +62,7 @@ const App = () => {
         </Routes>
       </Router>
 
-      <Toaster
+      <Toaster // 
         toastOptions={{
           className: "",
           style: {

@@ -1,7 +1,7 @@
 ﻿import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AlertCircle, Loader2, Printer } from "lucide-react";
-import { fetchSharedInvoice } from "../../api/invoiceApi";
+import { fetchSharedInvoice as fetchSharedInvoiceApi } from "../../api/invoiceApi";
 import Button from "../../components/ui/Button";
 
 const SharedInvoice = () => {
@@ -11,9 +11,9 @@ const SharedInvoice = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    const fetchSharedInvoice = async () => {
+    const loadSharedInvoice = async () => {
       try {
-        const response = await fetchSharedInvoice(token);
+        const response = await fetchSharedInvoiceApi(token);
         setInvoice(response.data);
       } catch (error) {
         setErrorMessage(
@@ -25,7 +25,7 @@ const SharedInvoice = () => {
       }
     };
 
-    fetchSharedInvoice();
+    loadSharedInvoice();
   }, [token]);
 
   const handlePrint = () => {

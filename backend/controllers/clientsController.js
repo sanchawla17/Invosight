@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 
 const toObjectId = (id) => new mongoose.Types.ObjectId(id);
 
+// Helper to build match criteria based on clientKey
+// email:<email> or name:<clientName>
 const buildClientMatch = (userId, clientKey) => {
   const decodedKey = decodeURIComponent(clientKey || "");
   if (decodedKey.startsWith("email:")) {
@@ -10,6 +12,7 @@ const buildClientMatch = (userId, clientKey) => {
     if (!email) {
       return null;
     }
+    // Escape special regex characters in email
     const escaped = email.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     return {
       user: toObjectId(userId),
@@ -35,9 +38,10 @@ const buildClientMatch = (userId, clientKey) => {
 export const getClients = async (req, res) => {
   try {
     const now = new Date();
+    // Aggregate invoices to get client summaries
     const clients = await Invoice.aggregate([
       { $match: { user: toObjectId(req.user.id) } },
-      {
+      {// Prepare fields for grouping
         $addFields: {
           clientNameSafe: { $ifNull: ["$billTo.clientName", "Unknown"] },
           clientEmailLower: { $toLower: { $ifNull: ["$billTo.email", ""] } },
@@ -45,6 +49,7 @@ export const getClients = async (req, res) => {
       },
       {
         $addFields: {
+          // Generate clientKey based on email or name
           clientKey: {
             $cond: [
               { $gt: [{ $strLenCP: "$clientEmailLower" }, 0] },
@@ -54,7 +59,7 @@ export const getClients = async (req, res) => {
           },
         },
       },
-      {
+      { // Group by clientKey to aggregate data
         $group: {
           _id: "$clientKey",
           clientName: { $first: "$clientNameSafe" },
@@ -92,7 +97,7 @@ export const getClients = async (req, res) => {
         $addFields: {
           totalOutstanding: { $subtract: ["$totalBilled", "$totalPaid"] },
         },
-      },
+      },// Sort clients by totalBilled descending
       { $sort: { totalBilled: -1 } },
     ]);
 

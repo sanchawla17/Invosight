@@ -1,10 +1,12 @@
+// For managing API endpoint paths
+
 export const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 export const API_PATHS = {
   AUTH: {
     REGISTER: "/api/auth/register", // Signup
     LOGIN: "/api/auth/login", // Authenticate user & return JWT token
-    LOGOUT: "/api/auth/logout",
+    LOGOUT: "/api/auth/logout", // Logout user
     GET_PROFILE: "/api/auth/me", // Get logged-in user details
     UPDATE_PROFILE: "/api/auth/me", // update profile details (PUT)
   },

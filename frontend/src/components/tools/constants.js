@@ -1,3 +1,5 @@
+// Tool card definitions for the tools dashboard
+
 import { ArrowRightLeft, BadgePercent, Clock, Receipt } from "lucide-react";
 
 const TOOL_CARDS = [

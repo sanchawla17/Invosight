@@ -3,7 +3,7 @@ import User from "../models/User.js";
 
 const protect = async (req, res, next) => {
   let token = req.cookies?.token;
-
+  // Check for token in Authorization header if not found in cookies
   if (!token && req.headers.authorization?.startsWith("Bearer")) {
     token = req.headers.authorization.split(" ")[1];
   }

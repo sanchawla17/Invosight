@@ -1,6 +1,7 @@
 import { Redis } from "@upstash/redis";
 import { Ratelimit } from "@upstash/ratelimit";
 
+// Check for required Upstash environment variables
 const hasUpstashEnv =
   !!process.env.UPSTASH_REDIS_REST_URL &&
   !!process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -42,7 +43,7 @@ if (hasUpstashEnv) {
 let warnedMissing = false;
 
 const getClientIp = (req) => {
-  const forwarded = req.headers["x-forwarded-for"];
+  const forwarded = req.headers["x-forwarded-for"]; // may contain multiple IPs
   if (typeof forwarded === "string" && forwarded.length > 0) {
     return forwarded.split(",")[0].trim();
   }

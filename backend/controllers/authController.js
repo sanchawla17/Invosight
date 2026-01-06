@@ -1,19 +1,19 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
-// Helper: Generate JWT
+// Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
 };
-
+// Build cookie options based on environment
 const buildCookieOptions = () => {
   const isProduction = process.env.NODE_ENV === "production";
   return {
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? "none" : "lax",
+    sameSite: isProduction ? "none" : "lax", // lax for same-site development
     maxAge: 7 * 24 * 60 * 60 * 1000,
   };
 };

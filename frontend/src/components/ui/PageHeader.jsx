@@ -1,3 +1,4 @@
+// PageHeader component with title, optional subtitle, and optional actions
 const PageHeader = ({ title, subtitle, actions }) => (
   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
     <div>

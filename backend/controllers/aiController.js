@@ -71,7 +71,7 @@ export const parseInvoiceFromImage = async (req, res) => {
   if (!cleanedBase64) {
     return res.status(400).json({ message: "Invalid image data" });
   }
-
+  // Estimate size of base64 image
   const estimatedBytes = Math.ceil((cleanedBase64.length * 3) / 4);
   const maxBytes = 4 * 1024 * 1024;
   if (estimatedBytes > maxBytes) {

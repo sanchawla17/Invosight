@@ -51,6 +51,7 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
   );
   const [isAiModalOpen, setIsAiModalOpen] = useState(false);
 
+  // Populate form if editing an existing invoice or generate new invoice number
   useEffect(() => {
     if (existingInvoice) {
       setFormData({
@@ -86,8 +87,9 @@ const CreateInvoice = ({ existingInvoice, onSave }) => {
     }
   }, [existingInvoice]);
 
+  // If navigated with AI data, populate form fields
   useEffect(() => {
-    const aiData = location.state?.aiData;
+    const aiData = location.state?.aiData; // AI extracted invoice data
 
     if (aiData) {
       setFormData((prev) => ({

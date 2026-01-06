@@ -13,8 +13,10 @@ import { protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
+// public route to get shared invoice by token
 router.get("/share/:token", getSharedInvoice);
 
+// protected routes for invoice management
 router.route("/").post(protect, createInvoice).get(protect, getInvoices);
 router.post("/:id/share", protect, createShareLink);
 router.post("/:id/share/disable", protect, disableShareLink);

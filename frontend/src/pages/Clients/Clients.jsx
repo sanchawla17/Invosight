@@ -31,6 +31,7 @@ const Clients = () => {
     loadClients();
   }, []);
 
+  // Loading state
   if (loading) {
     return (
       <div className="flex justify-center items-center h-96">
@@ -41,6 +42,7 @@ const Clients = () => {
 
   return (
     <div className="space-y-6">
+      {/* Page header with create invoice action */}
       <PageHeader
         title="Clients"
         subtitle="Track totals, overdue balances, and invoice history."
@@ -50,13 +52,13 @@ const Clients = () => {
           </Button>
         }
       />
-
+      {/* Error message display */}
       {error && (
         <div className="p-4 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700">
           {error}
         </div>
       )}
-
+      {/* Clients table or empty state */}
       {clients.length === 0 ? (
         <EmptyState
           icon={Users}

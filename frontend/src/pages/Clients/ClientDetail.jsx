@@ -16,14 +16,14 @@ import Button from "../../components/ui/Button";
 import ReminderModal from "../../components/invoices/ReminderModal";
 
 const ClientDetail = () => {
-  const { clientKey } = useParams();
+  const { clientKey } = useParams(); // get clientKey from route params
   const navigate = useNavigate();
   const [client, setClient] = useState(null);
   const [summary, setSummary] = useState(null);
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selectedInvoiceId, setSelectedInvoiceId] = useState("");
+  const [selectedInvoiceId, setSelectedInvoiceId] = useState(""); // selected invoice for reminder
   const [isReminderModalOpen, setIsReminderModalOpen] = useState(false);
 
   useEffect(() => {
@@ -45,6 +45,8 @@ const ClientDetail = () => {
     fetchClient();
   }, [clientKey]);
 
+  //  Returns a Memoized list of overdue invoices
+  // Only recomputes when 'invoices' changes
   const overdueInvoices = useMemo(() => {
     return invoices.filter((invoice) => {
       if (invoice.status === "Paid") {
@@ -58,6 +60,7 @@ const ClientDetail = () => {
     });
   }, [invoices]);
 
+  // Set default selected invoice when overdue invoices change
   useEffect(() => {
     if (overdueInvoices.length > 0) {
       setSelectedInvoiceId(overdueInvoices[0]._id);
@@ -66,6 +69,7 @@ const ClientDetail = () => {
     }
   }, [overdueInvoices]);
 
+  // Function to get computed status of an invoice
   const getComputedStatus = (invoice) => {
     if (invoice.status === "Paid") {
       return "Paid";
@@ -123,7 +127,7 @@ const ClientDetail = () => {
   ];
 
   const colorClasses = {
-    blue: { bg: "bg-emerald-100", text: "text-emerald-700" },
+    blue: { bg: "bg-blue-100", text: "text-blue-700" },
     emerald: { bg: "bg-emerald-100", text: "text-emerald-700" },
     amber: { bg: "bg-amber-100", text: "text-amber-700" },
     indigo: { bg: "bg-indigo-100", text: "text-indigo-700" },
@@ -137,12 +141,14 @@ const ClientDetail = () => {
         invoiceId={selectedInvoiceId}
       />
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        {/* Client name and email */}
         <div>
           <h1 className="text-2xl font-semibold text-slate-900">
             {client.name}
           </h1>
           <p className="text-sm text-slate-600">{client.email || "-"}</p>
         </div>
+        {/* Create Invoice button */}
         <Button
           variant="secondary"
           onClick={() =>
@@ -156,6 +162,7 @@ const ClientDetail = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        {/* Summary cards */}
         {summaryCards.map((card) => {
           const Icon = card.icon;
           return (
@@ -189,6 +196,7 @@ const ClientDetail = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm shadow-gray-100 space-y-4">
+          {/* Quick actions header */}
           <div>
             <h3 className="text-base font-semibold text-slate-900">
               Quick actions
@@ -197,6 +205,8 @@ const ClientDetail = () => {
               Generate reminders for overdue invoices.
             </p>
           </div>
+
+          {/* Overdue invoices dropdown and reminder button */}
           {overdueInvoices.length === 0 ? (
             <p className="text-sm text-slate-600">
               No overdue invoices for this client.
@@ -234,7 +244,7 @@ const ClientDetail = () => {
             </>
           )}
         </div>
-
+          {/* Client stats card */}
         <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm shadow-gray-100">
           <h3 className="text-base font-semibold text-slate-900 mb-2">
             Client stats
@@ -267,7 +277,7 @@ const ClientDetail = () => {
           </div>
         </div>
       </div>
-
+          {/* Invoices table */}
       <div className="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
         <div className="px-4 sm:px-6 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
           <h3 className="text-lg font-semibold text-slate-900">

@@ -1,3 +1,4 @@
+// Button component with variants, sizes, loading state, and optional icon
 import { Loader2 } from "lucide-react"
 
 const Button = ({

@@ -1,6 +1,8 @@
-import moment from "moment";
+import moment from "moment"; // date manipulation library
 
-export const formatDateInput = (value) => {
+// input: ISO date string - "2023-10-05T14:48:00.000Z"
+// output: "YYYY-MM-DD" format for input fields
+export const formatDateInput = (value) => { 
   if (!value) {
     return "";
   }
@@ -16,6 +18,7 @@ export const formatDateDisplay = (value) => {
   return date.isValid() ? date.format("MMM D, YYYY") : "-";
 };
 
+// Format period label based on interval
 export const formatPeriodLabel = (isoDate, interval) => {
   const date = moment(isoDate);
   if (!date.isValid()) {

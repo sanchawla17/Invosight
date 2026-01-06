@@ -16,7 +16,7 @@ export const convertCurrency = async (req, res) => {
 
     const response = await fetch(
       `https://open.er-api.com/v6/latest/${encodeURIComponent(from)}`
-    );
+    ); // returns rates against "from" currency for all supported currencies
     if (!response.ok) {
       return res.status(502).json({ message: "FX service unavailable" });
     }

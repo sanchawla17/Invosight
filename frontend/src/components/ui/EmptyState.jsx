@@ -1,3 +1,4 @@
+// displays an empty state with an optional icon, title, description, and action button
 const EmptyState = ({ icon: Icon, title, description, action, className }) => (
   <div
     className={`flex flex-col items-center justify-center py-12 text-center ${

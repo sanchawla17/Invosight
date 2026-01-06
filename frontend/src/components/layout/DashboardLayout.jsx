@@ -25,6 +25,7 @@ const NavigationItem = ({ item, isActive, onClick, isCollapsed }) => {
     </button>
 };
 
+// Determine active navigation item based on current path
 const getActiveNavFromPath = (pathname) => {
   const normalized = pathname.replace(/\/+$/, "") || "/";
   if (normalized === "/dashboard") return "dashboard";
@@ -44,8 +45,8 @@ const DashboardLayout = ({ children, activeMenu }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // for mobile sidebar
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false); // for desktop sidebar collapse
   const [activeNavItem, setActiveNavItem] = useState(
     activeMenu || getActiveNavFromPath(location.pathname)
   );
@@ -256,7 +257,7 @@ const DashboardLayout = ({ children, activeMenu }) => {
                 {headerCopy.subtitle && (
                   <span className="text-sm text-gray-500 hidden sm:inline">
                     {" "}
-                    â€” {headerCopy.subtitle}
+                    - {headerCopy.subtitle}
                   </span>
                 )}
               </h1>

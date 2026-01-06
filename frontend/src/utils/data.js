@@ -27,6 +27,7 @@ export const FEATURES = [
   },
 ];
 
+// sample testimonials data
 export const TESTIMONIALS = [
   {
     quote:
@@ -51,6 +52,7 @@ export const TESTIMONIALS = [
   },
 ];
 
+// sample FAQs data
 export const FAQS = [
   {
     question: "Can I create an invoice from text or a receipt photo?",
